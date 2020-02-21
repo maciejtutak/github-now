@@ -1,8 +1,8 @@
 import React from "react";
-import { RepositoriesStore } from './stores';
+import RepositoryStore from './stores';
 
 const StoresContext = React.createContext({
-    repositoriesStore: new RepositoriesStore()
+    repositoryStore: new RepositoryStore()
 });
 
 const useStores = () => React.useContext(StoresContext);

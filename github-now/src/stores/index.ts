@@ -1,3 +1,3 @@
-import RepositoriesStore from "./RespositoriesStore";
+import RepositoryStore from "./RespositoryStore";
 
-export { RepositoriesStore };
+export default RepositoryStore;
