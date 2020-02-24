@@ -1,7 +1,6 @@
-import React, { Component, MouseEvent } from "react";
-
-import RepositoryController from "./RepositoryController";
+import React from "react";
 import RepositoryItem from "./RepositoryItem";
+import RepositoryListHeader from "./RepositoryListHeader";
 import { observer } from "mobx-react";
 import styled from "styled-components";
 import useStores from '../useStores';
@@ -11,8 +10,10 @@ const RepositoryList = observer(() => {
     
     return (
         <ListContainer>
-            {/* <button onClick={repositoryStore.loadData}>Load Data</button> */}
-            <RepositoryController />
+            <ListHeader>
+                <RepositoryListHeader name="Stars" />
+                <RepositoryListHeader name="Forks" />
+            </ListHeader>
             <List>
                 {repositoryStore.isDataEmpty && <ListText>There are no trending repositories for {repositoryStore.language?.name}...</ListText>}
                 {!repositoryStore.isDataEmpty && repositoryStore.isLoading && <ListText>Loading data...</ListText>}
@@ -38,6 +39,15 @@ const List = styled.ul`
     width: 100%;
     list-style: none;
 `
+
+const ListHeader = styled.div`
+    padding: 10px 20px 0;
+    display: grid;
+    grid-template-columns: 100px 100px 1fr;
+    align-items: baseline;
+    user-select: none;
+    -webkit-user-select: none;
+`; 
 
 const ListText = styled.p`
     margin-top: 40px;

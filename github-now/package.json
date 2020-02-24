@@ -1,7 +1,8 @@
 {
   "name": "github-now",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "private": true,
+  "homepage": "https://tutak.me/githubnow",
   "dependencies": {
     "@primer/octicons-react": "^9.4.0",
     "@testing-library/jest-dom": "^4.2.4",

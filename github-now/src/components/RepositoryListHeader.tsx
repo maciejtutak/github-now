@@ -5,15 +5,6 @@ import styled, { css } from "styled-components";
 import { observer } from "mobx-react";
 import useStores from "../useStores";
 
-// interface IconProps {
-//     name: string,
-//     active?: boolean
-// }
-
-// const Icon: FunctionComponent<IconProps> = ({name, active}) => {
-//     return 
-// }
-
 enum SortOptions {
 	descending = "descending",
 	ascending = "ascending",

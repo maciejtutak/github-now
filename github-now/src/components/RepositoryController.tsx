@@ -1,15 +1,137 @@
-import React, { FunctionComponent } from "react";
+import Octicon, { Settings, X } from "@primer/octicons-react";
+import React, { FunctionComponent, MouseEvent, useEffect, useState } from "react";
 
-import RepositoryListHeader from "./RepositoryListHeader";
 import { observer } from "mobx-react";
 import styled from "styled-components";
 import useStores from "../useStores";
+
+const MobileMenu = observer(() => {
+    const { repositoryStore } = useStores();
+    const [open, setOpen] = useState<boolean>(false);
+
+    const show = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setOpen(true);
+    }
+
+    const hide = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setOpen(false);
+    }
+
+    return (
+        <div>
+            <ButtonOpen type="button" onClick={show}>
+                <Octicon icon={Settings} size={32} />
+            </ButtonOpen>
+            <MobileMenuOverlay open={open}>
+                <MobileMenuModal>
+                    <ButtonClose type="button" onClick={hide}>
+                        <Octicon icon={X} size={24} />
+                    </ButtonClose>
+                    <div>
+
+                    <Form>
+                        <span>
+                            Time span:
+                        </span>
+                        <div>
+                            <label>
+                                <input type="radio" value="daily" checked={repositoryStore.timeSpan === "daily"} onChange={repositoryStore.changeTimeSpan} /> 
+                                Daily
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input type="radio" value="weekly" checked={repositoryStore.timeSpan === "weekly"} onChange={repositoryStore.changeTimeSpan} />
+                                Weekly
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input type="radio" value="monthly" checked={repositoryStore.timeSpan === "monthly"} onChange={repositoryStore.changeTimeSpan} />
+                                Monthly
+                            </label>
+                        </div>
+                    </Form>
+                    <Language>
+                        <span>Language:</span>
+                        <Select value={repositoryStore.language?.urlParam} onChange={repositoryStore.changeLanguage}>
+                            {repositoryStore.languages.map((lang, idx) => <option value={lang.urlParam} key={idx}>{lang.name}</option>)}
+                        </Select>
+                    </Language>
+                    </div>
+                </MobileMenuModal>
+            </MobileMenuOverlay>
+        </div>
+    );
+});
+
+interface MobileMenuOverlayProps {
+    open: boolean
+};
+
+const Button = styled.button`
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+`;
+
+const ButtonOpen = styled(Button)`
+    width: 32px;
+    height: 32px;
+`;
+
+const ButtonClose = styled(Button)`
+    width: 32px;
+    height: 32px;
+`;
+
+const MobileMenuOverlay = styled.div<MobileMenuOverlayProps>`
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0.4);
+    overflow: hidden;
+    display: ${props => props.open === true ? 'block' : 'none'};
+`;
+
+const MobileMenuModal = styled.div`
+    display: flex;
+    flex-flow: column;
+    margin: 0 auto;
+    padding: 10px;
+    position: relative;
+    top: 24px;
+    height: 160px;
+    width: 96%;
+    background-color: white;
+
+    & > button {
+        align-self: flex-end;
+    }
+
+    & > div {
+        padding: 0 20px;
+    }
+`;
+
 
 const RepositoryController = observer(() => {
     const { repositoryStore } = useStores();
     
     return (
         <Controller>
+            <Desktop>
+
             <ControllerTop>    
                 <Form>
                     <span>
@@ -43,10 +165,11 @@ const RepositoryController = observer(() => {
                     </Select>
                 </Language>
             </ControllerTop>
-            <ListHeader>
-                <RepositoryListHeader name="Stars" />
-                <RepositoryListHeader name="Forks" />
-            </ListHeader>
+            </Desktop>
+
+            <Mobile>
+                <MobileMenu />
+            </Mobile>
         </Controller>
     )
 });
@@ -55,13 +178,24 @@ export default RepositoryController;
 
 
 
-
-
 const Controller = styled.div`
+
+`;
+
+const Desktop = styled.div`
+    @media all and (max-width: 768px) {
+        display: none;
+}
+`;
+
+const Mobile = styled.div`
+    @media all and (min-width: 769px) {
+        display: none;
+    }
 `;
 
 const ControllerTop = styled.div`
-    padding: 10px 20px;
+    padding: 10px 0;
     display: flex;
     flex-flow: row;
     align-items: baseline;
@@ -91,6 +225,9 @@ const Language = styled.div`
 const Select = styled.select`
     display: inline-block;
     padding: 5px 10px;
+    @media all and (max-width: 786px) {
+        margin: 10px 0;
+    }
     width: 200px;
     border: none;
     border: 1px solid;
@@ -106,14 +243,4 @@ const Select = styled.select`
     & :focus {
         outline: none;
     }
-`;
-
-const ListHeader = styled.div`
-    padding: 10px 20px 0;
-    display: grid;
-    grid-template-columns: 100px 100px 1fr;
-    align-items: baseline;
-
-    // font-family: "Source Sans Pro", sans-serif;
-    // font-size: 24px;
 `;
