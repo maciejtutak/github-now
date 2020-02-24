@@ -200,8 +200,6 @@ const ControllerTop = styled.div`
     flex-flow: row;
     align-items: baseline;
     justify-content: space-between;
-
-    // border-top: 3px solid #000;
 `
 
 const Form = styled.form`

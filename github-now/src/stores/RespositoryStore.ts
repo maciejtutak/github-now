@@ -7,9 +7,10 @@ type Language = {
 	name: string
 }
 
-enum SortOptions {
-	descending = "descending",
-	ascending = "ascending",
+export enum SortOptions {
+	descending = 0,
+	ascending,
+	none
 }
 export class RepositoryStore {
 	transportLayer: GitHubTrendingAPI = new GitHubTrendingAPI()
@@ -23,7 +24,7 @@ export class RepositoryStore {
 
 	@observable activeSort?: string;
 	@observable activeSortOption?: SortOptions;
-
+	sortOptionGenerator: Iterator<number> = this.optionGenerator();
 
 	constructor() {
 		this.loadLanguages();
@@ -89,16 +90,36 @@ export class RepositoryStore {
 		const language: string = e.currentTarget.value;
 		this.language = this.languages.find((item) => item.urlParam  === language) || {urlParam: "", name: "Any"};
 	}
+	
+	/* 0, 1, 2 generator experiment */
+	*optionGenerator(): Iterator<number> {
+		let option = 0;
+		while(true) {
+			yield option;
+			option++;
+			option %= 3;
+		}
+	}
 
 	@action
 	changeActiveSort = (to: string) => {
 		this.activeSort = to;
-		this.activeSortOption = SortOptions.descending;
+		this.sortOptionGenerator = this.optionGenerator();
 	}
 
 	@action
 	changeActiveSortOption = () => {
-		this.activeSortOption = (this.activeSortOption === SortOptions.descending) ? SortOptions.ascending : SortOptions.descending;
+		const option = this.sortOptionGenerator.next().value;
+		switch(option) {
+			case 0:
+				this.activeSortOption = SortOptions.descending;
+				break;
+			case 1:
+				this.activeSortOption = SortOptions.ascending
+				break;
+			case 2:
+				this.activeSortOption = SortOptions.none
+		}
 	}
 
 	@computed
@@ -110,6 +131,8 @@ export class RepositoryStore {
 						return this.data.slice().sort((a, b) => a.stars - b.stars)
 					case SortOptions.ascending:
 						return this.data.slice().sort((a, b) => b.stars - a.stars)
+					default:
+						return this.data;
 				}
 			case "Forks":
 				switch(this.activeSortOption) {
@@ -117,6 +140,8 @@ export class RepositoryStore {
 						return this.data.slice().sort((a, b) => a.forks - b.forks)
 					case SortOptions.ascending:
 						return this.data.slice().sort((a, b) => b.forks - a.forks)
+					default:
+						return this.data;
 				}
 			default:
 				return this.data;

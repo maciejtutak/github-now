@@ -2,13 +2,9 @@ import Octicon, { TriangleDown, TriangleUp } from "@primer/octicons-react";
 import React, { FunctionComponent } from "react";
 import styled, { css } from "styled-components";
 
+import { SortOptions } from "../stores/RespositoryStore";
 import { observer } from "mobx-react";
 import useStores from "../useStores";
-
-enum SortOptions {
-	descending = "descending",
-	ascending = "ascending",
-}
 
 interface RepositoryListHeaderProps { 
     name: string,
