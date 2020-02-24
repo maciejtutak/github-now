@@ -157,8 +157,8 @@ export class RepositoryStore {
 			since: this.timeSpan || "daily",
 			language: this.language?.urlParam || "",
 		}
-		const urlParams = new URLSearchParams(Object.entries(params))
-		await this.transportLayer.getData(urlParams)
+		// const urlParams = new URLSearchParams(Object.entries(params))
+		await this.transportLayer.getData(params)
 			.then(data => this.data = data)
 			.then(() => this.isLoading = false);
 		}
