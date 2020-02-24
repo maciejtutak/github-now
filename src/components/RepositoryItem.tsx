@@ -86,26 +86,17 @@ const Description = styled.p`
     margin-bottom: 1em;
 `
 
-const Top = styled.div`
-    display: flex;
-    flex-flow: row;
-    align-items: baseline;
-    justify-content: space-between;
-`
-
 const Title = styled.div`
     margin-bottom: 1em;
 `
 
 const Name = styled.h2`
-    // font-style: italic;
     display: inline;
 `
 
 const Author = styled.h2`
     display: inline;
     color: rgba(0, 0, 0, 0.5);
-    // font-family: "Source Serif Pro", serif;
     font-size: 1.6rem;
 `
 

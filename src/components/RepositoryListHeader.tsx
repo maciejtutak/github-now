@@ -15,7 +15,7 @@ const RepositoryListHeader: FunctionComponent<RepositoryListHeaderProps> = obser
     
     const onClick = () => {
         if (repositoryStore.activeSort !== name) { repositoryStore.changeActiveSort(name); }
-        repositoryStore.changeActiveSortOption();
+        else { repositoryStore.changeActiveSortOption(); }
     }
 
     return (

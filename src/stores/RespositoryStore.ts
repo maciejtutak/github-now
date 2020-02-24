@@ -9,8 +9,8 @@ type Language = {
 
 export enum SortOptions {
 	descending = 0,
-	ascending,
-	none
+	ascending = 1,
+	none = 2
 }
 export class RepositoryStore {
 	transportLayer: GitHubTrendingAPI = new GitHubTrendingAPI()
@@ -24,7 +24,7 @@ export class RepositoryStore {
 
 	@observable activeSort?: string;
 	@observable activeSortOption?: SortOptions;
-	sortOptionGenerator: Iterator<number> = this.optionGenerator();
+	sortOptionGenerator?: Iterator<number>;
 
 	constructor() {
 		this.loadLanguages();
@@ -49,6 +49,7 @@ export class RepositoryStore {
 				if (existingStore) {
 					set(this, existingStore);
 				}
+				
 			} else {
 				localStorage.setItem("store", json);
 			}
@@ -92,24 +93,24 @@ export class RepositoryStore {
 	}
 	
 	/* 0, 1, 2 generator experiment */
-	*optionGenerator(): Iterator<number> {
-		let option = 0;
+	*optionGenerator(start?: number): Iterator<number> {
+		let option = start || 0;
 		while(true) {
-			yield option;
 			option++;
 			option %= 3;
+			yield option;
 		}
 	}
 
 	@action
 	changeActiveSort = (to: string) => {
 		this.activeSort = to;
-		this.sortOptionGenerator = this.optionGenerator();
+		this.activeSortOption = SortOptions.descending;
 	}
 
 	@action
 	changeActiveSortOption = () => {
-		const option = this.sortOptionGenerator.next().value;
+		const option = this.optionGenerator(this.activeSortOption).next().value;
 		switch(option) {
 			case 0:
 				this.activeSortOption = SortOptions.descending;

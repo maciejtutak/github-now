@@ -21,7 +21,6 @@ export default class GitHubTrendingAPI {
 			method: "GET",
 		}
 		const request = new Request(`${apiUrl}languages`, options);
-		console.log('GET LANGUAGES', request);
 		return fetch(request)
 			.then((response) => {
 				return response.json()

@@ -1,5 +1,5 @@
 import Octicon, { Settings, X } from "@primer/octicons-react";
-import React, { FunctionComponent, MouseEvent, useEffect, useState } from "react";
+import React, { MouseEvent, useState } from "react";
 
 import { observer } from "mobx-react";
 import styled from "styled-components";
