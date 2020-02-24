@@ -4,20 +4,6 @@ import React from "react";
 import { observer } from "mobx-react";
 import styled from "styled-components";
 
-// interface Props {
-//     item: Record<string, any>
-// }
-
-// @observer
-// class RepositoryItem extends React.Component<Props> {
-//     render() {
-//     const { author, stars, name, language } = this.props.item;
-//     return (
-//         <li>{author}, {stars}, {name}, {language}</li>
-//     )
-//     }
-// };
-
 type ItemProps = { item: Record<string, any> };
 
 const RepositoryItem = observer(({ item }: ItemProps) => {

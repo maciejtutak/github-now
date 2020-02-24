@@ -6,7 +6,7 @@ function App() {
   return (
     <Layout>
       <Header>
-        <h1>GitHub Trending</h1>
+        <h1>GitHub Now</h1>
       </Header>
         <RepositoryList />  
     </Layout>
