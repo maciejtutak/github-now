@@ -7,7 +7,10 @@ function App() {
   return (
     <Layout>
       <Header>
-        <h1>GitHub Now</h1>
+        <div>
+          <h1>GitHub Now</h1>
+          <small>Alternative interface for browsing GitHub trending repositories.</small>
+        </div>
         <RepositoryController />
       </Header>
         <RepositoryList />  
@@ -23,7 +26,7 @@ const Layout = styled.div`
 
 const Header = styled.header`
   position: relative;
-  padding: 10px 20px 0;
+  padding: 10px 20px 20px;
   
   display: flex;
   flex-direction: column;
@@ -31,7 +34,7 @@ const Header = styled.header`
   @media all and (max-width: 768px) {
     flex-direction: row;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: flex-end;
   }
 `;
 

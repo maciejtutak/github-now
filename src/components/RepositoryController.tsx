@@ -1,6 +1,7 @@
 import Octicon, { Settings, X } from "@primer/octicons-react";
 import React, { MouseEvent, useState } from "react";
 
+// import Select from "react-select";
 import { observer } from "mobx-react";
 import styled from "styled-components";
 import useStores from "../useStores";
@@ -160,6 +161,7 @@ const RepositoryController = observer(() => {
                     <span>
                         Language:
                     </span>
+                    {/* <Select options={repositoryStore.languages.map(lang => lang)} /> */}
                     <Select value={repositoryStore.language?.urlParam} onChange={repositoryStore.changeLanguage}>
                         {repositoryStore.languages.map((lang, idx) => <option value={lang.urlParam} key={idx}>{lang.name}</option>)}
                     </Select>
@@ -207,8 +209,14 @@ const Form = styled.form`
     flex-flow: row;
     align-items: baseline;
     justify-content: flex-start;
+
     & > * {
         margin-right: 10px;
+    }
+
+    & div label input {
+        margin: 0;
+        margin-right: 5px;
     }
 
     padding: 10px 0;
