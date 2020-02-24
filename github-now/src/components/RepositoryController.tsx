@@ -1,16 +1,12 @@
-import React, { Children, FormEvent, FunctionComponent } from "react";
+import React, { FunctionComponent } from "react";
 
+import RepositoryListHeader from "./RepositoryListHeader";
 import { observer } from "mobx-react";
 import styled from "styled-components";
 import useStores from "../useStores";
 
 const RepositoryController = observer(() => {
     const { repositoryStore } = useStores();
-
-    // const onChange = (e: FormEvent<HTMLInputElement>) => {
-    //     repositoryStore.timeSpan = e.currentTarget.value;
-    // }
-    console.log(repositoryStore.repositoryUI);
     
     return (
         <Controller>
@@ -21,19 +17,19 @@ const RepositoryController = observer(() => {
                     </span>
                     <div>
                         <label>
-                            <input type="radio" value="daily" checked={repositoryStore.repositoryUI.timeSpan === "daily"} onChange={repositoryStore.changeTimeSpan} /> 
+                            <input type="radio" value="daily" checked={repositoryStore.timeSpan === "daily"} onChange={repositoryStore.changeTimeSpan} /> 
                             Daily
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="radio" value="weekly" checked={repositoryStore.repositoryUI.timeSpan === "weekly"} onChange={repositoryStore.changeTimeSpan} />
+                            <input type="radio" value="weekly" checked={repositoryStore.timeSpan === "weekly"} onChange={repositoryStore.changeTimeSpan} />
                             Weekly
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="radio" value="monthly" checked={repositoryStore.repositoryUI.timeSpan === "monthly"} onChange={repositoryStore.changeTimeSpan} />
+                            <input type="radio" value="monthly" checked={repositoryStore.timeSpan === "monthly"} onChange={repositoryStore.changeTimeSpan} />
                             Monthly
                         </label>
                     </div>
@@ -42,15 +38,14 @@ const RepositoryController = observer(() => {
                     <span>
                         Language:
                     </span>
-                    <Select value={repositoryStore.repositoryUI.language} onChange={repositoryStore.changeLanguage}>
-                        {repositoryStore.repositoryUI.languages.map((lang, idx) => <option value={lang.urlParam} key={idx}>{lang.name}</option>)}
+                    <Select value={repositoryStore.language?.urlParam} onChange={repositoryStore.changeLanguage}>
+                        {repositoryStore.languages.map((lang, idx) => <option value={lang.urlParam} key={idx}>{lang.name}</option>)}
                     </Select>
                 </Language>
             </ControllerTop>
             <ListHeader>
-                <ListHeaderSort>Stars</ListHeaderSort>
-                <ListHeaderSort>Forks</ListHeaderSort>
-                <span>Repositories</span>
+                <RepositoryListHeader name="Stars" />
+                <RepositoryListHeader name="Forks" />
             </ListHeader>
         </Controller>
     )
@@ -59,43 +54,7 @@ const RepositoryController = observer(() => {
 export default RepositoryController;
 
 
-// enum SortOptions {
-// 	starsDescending = "starsDescending",
-// 	starsAscending = "starsAscending",
-// 	forksDescending = "forksDescending",
-// 	forksAscending = "forksAscending",
-// }
 
-enum SortOptions {
-	descending = "descending",
-	ascending = "ascending",
-}
-
-type ListHeaderSortProps = { 
-
-};
-
-const ListHeaderSort: FunctionComponent<ListHeaderSortProps> = observer(({ children }) => {
-    const { repositoryStore } = useStores();
-    
-    const onClick = () => {
-        // repositoryStore.repositoryUI.sort.name = this
-        repositoryStore.repositoryUI.sortable.changeSortType();
-        // repositoryStore.repositoryUI.sortType = repositosryStore.repositoryUI.sortType;
-        console.log("SortOptions: ", repositoryStore.repositoryUI.sortable.name)
-    }
-
-    return (
-        <div onClick={onClick}>
-            <span>
-                {children}
-                {/* {repositoryStore.repositoryUI.sortType === SortType.none ? <p>none</p> : null}
-                {repositoryStore.repositoryUI.sortType === SortType.descending ? <p>descending</p> : null}
-                {repositoryStore.repositoryUI.sortType === SortType.ascending ? <p>ascending</p> : null} */}
-            </span>
-        </div>
-    );
-})
 
 
 const Controller = styled.div`
@@ -108,7 +67,7 @@ const ControllerTop = styled.div`
     align-items: baseline;
     justify-content: space-between;
 
-    border-bottom: 3px solid #000;
+    // border-top: 3px solid #000;
 `
 
 const Form = styled.form`
@@ -155,6 +114,6 @@ const ListHeader = styled.div`
     grid-template-columns: 100px 100px 1fr;
     align-items: baseline;
 
-    font-family: "Source Sans Pro", sans-serif;
-    font-size: 24px;
+    // font-family: "Source Sans Pro", sans-serif;
+    // font-size: 24px;
 `;

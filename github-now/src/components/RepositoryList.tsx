@@ -11,10 +11,12 @@ const RepositoryList = observer(() => {
     
     return (
         <ListContainer>
-            <button onClick={repositoryStore.repositoryData.loadData}>Load Data</button>
+            {/* <button onClick={repositoryStore.loadData}>Load Data</button> */}
             <RepositoryController />
             <List>
-                {!repositoryStore.repositoryData.isLoading ? repositoryStore.sorted.map((item, idx) => <RepositoryItem item={item} key={idx} />) : <p>Loading...</p>}
+                {repositoryStore.isDataEmpty && <ListText>There are no trending repositories for {repositoryStore.language?.name}...</ListText>}
+                {!repositoryStore.isDataEmpty && repositoryStore.isLoading && <ListText>Loading data...</ListText>}
+                {!repositoryStore.isDataEmpty && !repositoryStore.isLoading && repositoryStore.sortedData.map((item, idx) => <RepositoryItem item={item} key={idx} />)}
             </List>
         </ListContainer>
     )  
@@ -35,4 +37,10 @@ const List = styled.ul`
     padding: 10px 0;
     width: 100%;
     list-style: none;
+`
+
+const ListText = styled.p`
+    margin-top: 40px;
+    font-size: 2.4rem;
+    text-align: center;
 `

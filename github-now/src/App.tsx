@@ -20,7 +20,7 @@ const Layout = styled.div`
 `;
 
 const Header = styled.header`
-  padding: 10px 0;
+  padding: 10px 20px;
 `;
 
 export default App;
