@@ -4,29 +4,29 @@ import React from "react";
 import { observer } from "mobx-react";
 import styled from "styled-components";
 
-type ItemProps = { item: Record<string, any> };
+type ItemProps = { item: Record<string, string> };
 
 const RepositoryItem = observer(({ item }: ItemProps) => {
     const { author, name, description, stars, forks, language, languageColor, url } = item;
     return (
         <ItemContainer href={url}>
-        <Item>
-            <IconRow>
-                <Octicon icon={Star} />
-                {stars}
-            </IconRow>
-            <IconRow>
-                <Octicon icon={RepoForked} />
-                {forks}
-            </IconRow>
-            <ItemInfo>
-                <Title>
-                    <Name>{name}</Name> <Author>by {author}</Author>
-                </Title>
-                <Description>{description}</Description>
-                {language && <Language languageColor={languageColor}>{language}</Language>}
-            </ItemInfo>
-        </Item>
+            <Item>
+                <IconRow>
+                    <Octicon icon={Star} />
+                    {stars}
+                </IconRow>
+                <IconRow>
+                    <Octicon icon={RepoForked} />
+                    {forks}
+                </IconRow>
+                <ItemInfo>
+                    <Title>
+                        <Name>{name}</Name> <Author>by {author}</Author>
+                    </Title>
+                    <Description>{description}</Description>
+                    {language && <Language languageColor={languageColor}>{language}</Language>}
+                </ItemInfo>
+            </Item>
         </ItemContainer>
     )
 });
@@ -40,7 +40,7 @@ const ItemContainer = styled.a`
 
 const Item = styled.li`
     margin: 0;
-    padding: 20px;
+    padding: 15px 20px;
     
     width: 100%;
     align-items: baseline;
@@ -52,11 +52,10 @@ const Item = styled.li`
         grid-template-columns:  100px 1fr;
     }
 
-    background-color: #ffffff;
-    border-bottom: 1px solid #ececec;
+    border-bottom: 1px solid ${props => props.theme.colors.secondaryColor};
 
     &:hover {
-        background-color: #f0f0f0;
+        background-color: ${props => props.theme.colors.secondaryColor};
     }
 `
 
@@ -83,11 +82,11 @@ const Description = styled.p`
     width: 100%;
     display: flex;
     flex-flow: row;
-    margin-bottom: 1em;
+    margin-bottom: 0.4em;
 `
 
 const Title = styled.div`
-    margin-bottom: 1em;
+    margin-bottom: 0.4em;
 `
 
 const Name = styled.h2`
@@ -96,8 +95,8 @@ const Name = styled.h2`
 
 const Author = styled.h2`
     display: inline;
-    color: rgba(0, 0, 0, 0.5);
     font-size: 1.6rem;
+    color: ${props => props.theme.colors.secondaryTextColor};
 `
 
 interface LanguageProps {
@@ -106,8 +105,9 @@ interface LanguageProps {
 
 
 const Language = styled.span<LanguageProps>`
-    padding: 0 0.4em;
+    padding: 0.1em 0.4em;
     margin: 0;
-    // background-color: ${props => props.languageColor}40;
-    background-color: rgba(100, 50, 200, 0.2);
+    border-radius: 4px;
+    background-color: ${props => props.languageColor}50;
+    // background-color: ${props => props.theme.colors.primaryColor};
 `

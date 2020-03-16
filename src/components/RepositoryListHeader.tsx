@@ -3,6 +3,7 @@ import React, { FunctionComponent } from "react";
 import styled, { css } from "styled-components";
 
 import { SortOptions } from "../stores/RespositoryStore";
+import { ThemeStore } from "../stores";
 import { observer } from "mobx-react";
 import useStores from "../useStores";
 
@@ -55,7 +56,7 @@ const Container = styled.div`
 const Icons = styled.div`
     display: flex;
     flex-direction: column;
-    color: #ececec;
+    color: ${props => props.theme.colors.primaryTextColor};
 `;
 
 interface IconProps {
@@ -63,35 +64,23 @@ interface IconProps {
 }
 
 const IconUp = styled.div<IconProps>`
-    color: currentColor;
+    color: ${props => props.theme.colors.secondaryColor};
     & svg {
         position: relative;
         top: 2px;
     }
     ${props => props.active && css`
-        color: #000
+        color: ${props => props.theme.colors.primaryTextColor};
     `}
     `;
 
 const IconDown = styled.div<IconProps>`
-    color: currentColor;
+    color: ${props => props.theme.colors.secondaryColor};
     & svg {
         position: relative;
         bottom: 2px;
     }
     ${props => props.active && css`
-        color: #000
+        color: ${props => props.theme.colors.primaryTextColor};
     `}
 `;
-
-interface LanguageProps {
-    languageColor?: string
-}
-
-
-const Language = styled.span<LanguageProps>`
-    padding: 0 0.4em;
-    margin: 0;
-    // background-color: ${props => props.languageColor}40;
-    background-color: rgba(100, 50, 200, 0.2);
-`

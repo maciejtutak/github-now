@@ -1,14 +1,13 @@
-:root {
-  /* light mode */
+/* :root {
   --background-color-light: #ffffff;
   --text-color-light: #282828;
   --accent-color-light: #9068e0;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600,600i|Source+Serif+Pro:400,600&display=swap');
+ */
 
-
-* {
+/* * {
   box-sizing: border-box;
 }
 
@@ -21,7 +20,6 @@ body {
   margin: 0;
   padding: 0;
 
-  /* font-family: "Source Serif Pro", serif; */
   font-family: "Source Sans Pro", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -52,3 +50,7 @@ h2 {
   font-size: 2rem;
   font-weight: 600;
 }
+
+#root {
+  background-color: red;
+} */

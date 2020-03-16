@@ -1,22 +1,31 @@
+import styled, { ThemeProvider } from 'styled-components';
+
+import GlobalStyles from './styled/GlobalStyles';
 import React from 'react';
 import RepositoryController from "./components/RepositoryController";
 import RepositoryList from './components/RepositoryList';
-import styled from 'styled-components';
+import { observer } from 'mobx-react';
+import useStores from './useStores';
 
-function App() {
+const App = observer(() => {
+  const { themeStore } = useStores();
+  
   return (
-    <Layout>
-      <Header>
-        <div>
-          <h1>GitHub Now</h1>
-          <small>Alternative interface for browsing GitHub trending repositories.</small>
-        </div>
-        <RepositoryController />
-      </Header>
-        <RepositoryList />  
-    </Layout>
+    <ThemeProvider theme={themeStore.theme}>
+      <Layout>
+        <GlobalStyles />
+        <Header>
+            <h1>GitHub Now</h1>
+            <small>Alternative interface for browsing GitHub trending repositories.</small>
+        </Header>
+          <RepositoryController />
+      <RepositoryList />  
+      </Layout>
+    </ThemeProvider>
   );
-}
+})
+
+
 
 const Layout = styled.div`
   margin: 0 auto;
@@ -26,8 +35,10 @@ const Layout = styled.div`
 
 const Header = styled.header`
   position: relative;
-  padding: 10px 20px 20px;
+  padding: 20px;
+  margin-bottom: 10px;
   
+  width: 100%;
   display: flex;
   flex-direction: column;
 

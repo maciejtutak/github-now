@@ -1,3 +1,4 @@
 import RepositoryStore from "./RespositoryStore";
+import ThemeStore from "./ThemeStore";
 
-export default RepositoryStore;
+export { RepositoryStore, ThemeStore };

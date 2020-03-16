@@ -30,7 +30,6 @@ const ListContainer = styled.div`
     display: flex;
     flex-direction: column;
     max-width: 1024px;
-    background-color: #ffffff;
 `
 
 const List = styled.ul`
