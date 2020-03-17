@@ -6,24 +6,41 @@ import useStores from "../useStores";
 function ThemeToggle() {
   const { themeStore } = useStores();
   return (
-    <Toggle>
+    <Container>
+      <span>Appearance:</span>
       <input
         id="themeToggle"
         type="checkbox"
         onClick={themeStore.changeTheme}
       />
       <Label htmlFor="themeToggle">
-        <Moon width={18} height={18} />
+        <Moon width={20} height={20} />
       </Label>
-    </Toggle>
+    </Container>
   );
 }
 
 export default ThemeToggle;
 
-const Toggle = styled.div`
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  @media all and (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  & span {
+    margin-right: 0.6em;
+    @media all and (max-width: 768px) {
+      margin: 10px 0 5px 0;
+    }
+  }
+
   & input[type="checkbox"] {
-    opacity: 0;
+    display: none;
   }
 `;
 
@@ -35,6 +52,10 @@ const Label = styled.label`
   height: 34px;
   width: 34px;
 
+  &:hover {
+    background-color: ${props => props.theme.colors.secondaryColor};
+  }
+
   & > svg {
     margin: auto;
     align-self: center;
@@ -43,6 +64,3 @@ const Label = styled.label`
   border-radius: 4px;
   border: 1px solid ${props => props.theme.colors.secondaryColor};
 `;
-
-// const MoonStyled = styled.Moon`
-// `;

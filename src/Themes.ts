@@ -6,7 +6,6 @@ const lightTheme: DefaultTheme = {
         bgColor: '#ffffff',
         primaryTextColor: '#282828',
         secondaryTextColor: '#8c8c8c',
-        primaryColor: '',
         secondaryColor: '#ececec',
     }
 }
@@ -14,11 +13,10 @@ const lightTheme: DefaultTheme = {
 const darkTheme: DefaultTheme = {
 
     colors: {
-        bgColor: '#373737',
+        bgColor: '#282828',
         primaryTextColor: '#ececec',
         secondaryTextColor: '#8c8c8c',
-        primaryColor: '#b7a1df',
-        secondaryColor: '#4c4c4c',
+        secondaryColor: '#3a3a3a',
     }
 }
 
